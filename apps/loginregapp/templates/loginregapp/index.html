@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <h1>{{ listallusers }}</h1>
+        <h1>List user</h1>
+        <ul>
+            {% for user in listallusers %}
+            <li>{{ user }}</li>
+            {% endfor %}
+        </ul>
+
+        <h1>Registration</h1><br>
+        <form class="" action="/register" method="POST">
+            {% csrf_token %}
+            First Name: <input type="text" name="first_name" value=""><br>
+            Last Name: <input type="text" name="last_name" value=""><br>
+            Emai: <input type="text" name="email" value=""><br>
+            Password: <input type="password" name="password" value=""><br>
+            Confirm Pw: <input type="password" name="confirmpw" value=""><br>
+            <input type="submit" name="" value="Register"><br>
+
+        </form>
+         <h1>Login</h1><br>
+         <form class="" action="/showuser" method="POST">
+             {% csrf_token %}
+             Email: <input type="text" name="email" value=""><br>
+             Password: <input type="password" name="password" value=""><br>
+             <input type="submit" name="" value="Login"><br>
+
+         </form>
+    </body>
+</html>
