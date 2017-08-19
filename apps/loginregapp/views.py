@@ -21,8 +21,8 @@ def showuser(request):
         'listallusers': User.objects.all()
     }
     #get or filter
-    if User.objects.filter(email=request.POST['emaillogin']):
-        print 'You are in'
+    if not User.objects.filter(email=request.POST['emaillogin']):
+        return render(request, '/')
     else:
         return render(request , 'loginregapp/showuser.html', context)
 
