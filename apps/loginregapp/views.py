@@ -2,17 +2,29 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
 from .models import User
+from django.contrib import auth
+
 
 
 
 def index(request):
-    return render(request , 'loginregapp/index.html')
-
-def showuser(request):
+    #to use context in index route
     context = {
         'listallusers': User.objects.all()
     }
-    return redirect('/' , context)
+    return render(request , 'loginregapp/index.html', context)
+
+def showuser(request):
+    print 'show me'
+    users = User.objects.all()
+    context = {
+        'listallusers': User.objects.all()
+    }
+    #get or filter
+    if User.objects.filter(email=request.POST['emaillogin']):
+        print 'You are in'
+    else:
+        return render(request , 'loginregapp/showuser.html', context)
 
 def register(request):
     User.objects.validate(request, request.POST)

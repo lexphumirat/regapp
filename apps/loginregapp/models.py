@@ -6,13 +6,19 @@ from django.contrib import messages
 
 class UserManger(models.Manager):
     def validate(self,request, post_data):
-        print post_data , 'hello'
-        newuser = User.objects.create(
-        first_name = request.POST['first_name'],
-        last_name = request.POST['last_name'],
-        email = request.POST['email'],
-        password = request.POST['password'],
-        confirmpw = request.POST['confirmpw']
+        if len(post_data['first_name']) < 3 or len(post_data['last_name']) < 3 or len(post_data['email']) < 1:
+            messages.error(request, 'You need more than three letters')
+        if len(self.filter(email=request.POST['email'])) > 0:
+            messages.error(request, 'email needs to be unique')
+        if request.POST['password'] != request.POST['confirmpw']:
+            messages.error(request, 'your password must match')
+        else:
+         newuser = User.objects.create(
+         first_name = request.POST['first_name'],
+         last_name = request.POST['last_name'],
+         email = request.POST['email'],
+         password = request.POST['password'],
+         confirmpw = request.POST['confirmpw']
         )
         print 'hello man'
 
